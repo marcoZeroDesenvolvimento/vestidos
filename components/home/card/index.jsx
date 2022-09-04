@@ -11,7 +11,7 @@ export default function Card({datas,props}){
                 return(
             <View style={styles.section} key={e.id}>
                 {/* to={`/seeProduct/${e.id}`} */}
-                <TouchableOpacity  onPress={() => props.push('SeeProduct',{id:e.id}) }  key={e.id}>
+                <TouchableOpacity  onPress={() => props.push('SeeProduct',{id:4}) }  key={e.id}>
                     <Image  style={styles.image} source={{uri:e.url}}
                 ></Image>
                 </TouchableOpacity>

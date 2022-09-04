@@ -5,12 +5,9 @@ import {  useParams } from "react-router-native";
 import HeaderHome from "../../components/home/header";
 import ViewHome from "../../components/home/ViewHome";
 import BaseProduct from "../../components/seeProduct/baseProduct";
-import { useNavigation ,getParam} from '@react-navigation/native';
-export default function SeeProduct({navigation}){
-    // const {id} = useParams()
-    const getParam = navigation.setOptions({})
-    console.log(getParam)
-
+export default function SeeProduct({navigation,route}){
+   const {id} = route.params;
+    console.log(id)
     const [dataSelect, setDataSelect] = useState([])
     const [configProduct, setConfigProduct] = useState('oi')
     async function popularProduct(){

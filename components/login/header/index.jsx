@@ -3,7 +3,7 @@ import { Text, View,TextInput,StyleSheet,Button, TouchableOpacity} from "react-n
 import { supabase } from '../../../supabase';
 import MyContext from '../../../myContext'
 import React, { useContext } from 'react'
-
+import { useForm } from 'react-hook-form'
 
 export function Header({props}){
     const { id,setId } = useContext(MyContext)
@@ -36,13 +36,13 @@ return(
             <TextInput
                 style={styles.input}
                 value={user}
-                onChange={(e) => setUser(e.target.value)}
+                onChangeText={setUser}
                 /> 
             <Text>Password:</Text>
             <TextInput
                 style={styles.input}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChangeText={setPassword}
                 secureTextEntry={true}
                 />
                 <TouchableOpacity onPress={()=> handleSignup()}> 
