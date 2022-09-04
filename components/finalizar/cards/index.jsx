@@ -5,18 +5,19 @@ export default function CardsFinalizar({title,value,url}){
     return(
         <View style={styles.section}>
             <View style={{margin:10}} >
-                <View style={{flexDirection:'colum', justifyContent:"space-around"}}>
-                <Text style={{fontWeight:"bold"}}>{title}</Text>
-                <Text style={{fontWeight:"bold"}}> R$: {value}</Text>
-            </View>
+                <View >
+                        <Text style={{fontWeight:"bold"}}>{title}</Text>
+                        <Text style={{fontWeight:"bold"}}> R$: {value}</Text>
+                </View> 
+                </View>
                 <Image  style={styles.imageProduct} source={{uri:url}}></Image>
-            </View>
         </View>
     )
 }
 const styles = StyleSheet.create({
     section:{
-        textAlign:'center'
+        textAlign:'center',
+        marginRight:10
     },
     copy:{
         marginTop:400

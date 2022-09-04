@@ -7,7 +7,6 @@ import axios from "axios";
 
 
 export default function BaseProduct({title,subtitle,value,url,props}){
-
     const { id,setId } = useContext(MyContext)
  
     async function handleAddTocar(){
@@ -26,28 +25,23 @@ export default function BaseProduct({title,subtitle,value,url,props}){
                 data :{ user: id.user.id,id_card: url, value: value, title: title}
             });
         }
-        console.log(url)
     }    
-
-
-
-
     return(
         <View style={styles.section}>
             <Text style={styles.title}>{title}</Text>
             <Text>{subtitle}</Text>
-            <View style={{fontWeight:'bold',marginTop:20}}>
+            <View style={{fontWeight:'bold',marginTop:20,alignItems:'center'}}>
                 <Dolar name="attach-money" size={20} color="grey"/>
-                <Text style={{fontWeight:'bold'}}><Text>R$:</Text>{value}</Text>
+                <Text style={{fontWeight:'bold'}}><Text >R$:</Text>{value}</Text>
             </View>
             {id == 'undefined' ? (
                  <View style={{flexDirection:'row',justifyContent:'space-around',width:"100%"}}>
-                 <TouchableOpacity  onPress={()=> alert("faça login")}>
+                 <TouchableOpacity  onPress={()=> alert("faça login")} style={{ alignItems:'center',textAlign:'center'}}>
                      <Icon name="shopping-cart" size={15}/>
                      <Text> Add ao carrinho</Text>
                  </TouchableOpacity>
-                 <TouchableOpacity  onPress={()=> alert("faça login")}>
-                         <View>
+                 <TouchableOpacity  onPress={()=> alert("faça login")} >
+                         <View style={{ alignItems:'center',textAlign:'center'}}>
                              <Icon name="credit-card" size={15}/>
                              <Text> Comprar</Text>
                          </View>
@@ -55,17 +49,15 @@ export default function BaseProduct({title,subtitle,value,url,props}){
              </View>
             ):(
                 <View style={{flexDirection:'row',justifyContent:'space-around',width:"100%"}}>
-                    <TouchableOpacity  onPress={()=>handleAddTocar()}>
+                    <TouchableOpacity  onPress={()=>handleAddTocar()} style={{ alignItems:'center',textAlign:'center'}}>
                         <Icon name="shopping-cart" size={15}/>
                         <Text> Add ao carrinho</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity  onPress={()=>console.log(id)}>
-                        <TouchableOpacity onPress={()=> props.navigate('Finalizar')} >
-                            <View>
-                                <Icon name="credit-card" size={15}/>
-                                <Text> Comprar</Text>
-                            </View>
-                        </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> props.navigate('Finalizar')} >
+                        <View style={{ alignItems:'center',textAlign:'center'}}>
+                            <Icon name="credit-card" size={15}/>
+                            <Text> Comprar</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
             )}
