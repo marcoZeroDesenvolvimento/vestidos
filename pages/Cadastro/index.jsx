@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Button, View ,StyleSheet,TextInput,Text }from "react-native"
 import Back from "../../components/cadastro/back";
-import ButtonComponent from "../../components/cadastro/Button";
-import Input from "../../components/cadastro/input"
 import Logo from "../../components/login/logo"
 import { supabase } from "../../supabase";
-export default function Cadastro(){
+
+export default function Cadastro({navigation}){
     const [email,setEmail] = useState("")
     const [ password,setPassword] = useState("")
 
@@ -43,7 +42,7 @@ export default function Cadastro(){
                     color="orange"
                     onPress={()=> setCadastro()}
                 ></Button>
-                <Back login={"login"}/>
+                <Back login={"login"} props={navigation}/>
             </View>
 
         </View>

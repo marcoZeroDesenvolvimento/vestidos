@@ -1,37 +1,34 @@
 import {  useState } from "react";
-import { Text, View,TextInput,StyleSheet,Button} from "react-native"
-import { Link } from "react-router-native";
+import { Text, View,TextInput,StyleSheet,Button, TouchableOpacity} from "react-native"
 import { supabase } from '../../../supabase';
 import MyContext from '../../../myContext'
 import React, { useContext } from 'react'
-export function Header(){
-    const { id,setId } = useContext(MyContext)
-    console.log(id)
 
+
+export function Header({props}){
+    const { id,setId } = useContext(MyContext)
 
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
+
     async function handleSignup() {
         const response = await supabase.auth.signIn({
-            email: 'steniosousaf@gmail.com',
-            password: '123123',
+            email: user,
+            password: password,
           })
           if(response.user == null){
               alert('usuário não encontrado')
+              console.log(response.user)
+              props.navigate('Login')
           }else{
             alert('bem-vindo')
+            props.navigate('Home')
         }
         setId(response)
         
     }
 
 
-    async function deslogar(){
-        let data = await supabase.auth.signUp({
-            email: 'steniosousaf@gmail.com',
-            password: '123123'
-          })
-    }
 return(
     <>
         <View style={styles.form}>
@@ -47,28 +44,14 @@ return(
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 secureTextEntry={true}
-                
                 />
-        <Button 
-            title='Login' 
-            onPress={()=> handleSignup()}
-            style={styles.button}
-            color="orange"
-        ></Button>
-        <Button 
-            title='deslogar' 
-            onPress={()=> teste()}
-            style={styles.button}
-            color="orange"
-        ></Button>
-        <View style={{justifyContent:'space-around',display:'flex',flexDirection:'row'}}>
-            <Link to="/cadastro">
+                <TouchableOpacity onPress={()=> handleSignup()}> 
+                            <Text>Entrar</Text>
+                </TouchableOpacity>
+              
+            <TouchableOpacity onPress={()=>props.navigate('Cadastro')}>
                 <Text style={styles.cadastro}> Realizar <Text style={{color:'orange'}}> cadastro |</Text></Text>
-            </Link>
-            <Link to="/">
-                <Text style={styles.cadastro}> Acessar sem <Text style={{color:'orange'}}> cadastro </Text></Text>
-            </Link>
-        </View>
+            </TouchableOpacity>
     </View>
     
     </>

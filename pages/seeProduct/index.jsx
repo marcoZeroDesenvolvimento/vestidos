@@ -1,14 +1,18 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { useParams } from "react-router-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {  useParams } from "react-router-native";
 import HeaderHome from "../../components/home/header";
 import ViewHome from "../../components/home/ViewHome";
 import BaseProduct from "../../components/seeProduct/baseProduct";
+import { useNavigation ,getParam} from '@react-navigation/native';
+export default function SeeProduct({navigation}){
+    // const {id} = useParams()
+    const getParam = navigation.setOptions({})
+    console.log(getParam)
 
-export default function SeeProduct(){
-    const {id} = useParams()
-    const [dataSelect, setDataSelect] = useState('')
+    const [dataSelect, setDataSelect] = useState([])
+    const [configProduct, setConfigProduct] = useState('oi')
     async function popularProduct(){
         const {data} = await Axios({
             method: 'get',
@@ -18,31 +22,38 @@ export default function SeeProduct(){
               'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4emtnbG5oa3Z1dHByeGNub3pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjE4OTMzODAsImV4cCI6MTk3NzQ2OTM4MH0.xgBWurkKfUCNualBbQAfI3DFMuRdOWIfPUOfj2IFamw'
             }
           });
-        data.map((e) =>{
-            if(e.id == id) {
-                setDataSelect(e)
+          data.map((e) =>{
+              if(e.id == id) {
+                setConfigProduct(e)
+                let x = [e.url, e.url2,e.url3,e.url4,e.url5]
+                setDataSelect(x)
             }
         })
     }
+
     useEffect(()=>{popularProduct()},[])
     return(
         <>
-            <HeaderHome/>
-                <ViewHome/>
-            <View style={styles.section}>
-                <Image style={styles.image}source={{uri:dataSelect.url}}></Image>
-            </View>
-            <BaseProduct title={dataSelect.title} subtitle={dataSelect.subtitle} value={dataSelect.value}/>
+            <HeaderHome props={navigation}/>
+            <ViewHome/>
+            <ScrollView horizontal={true} style={styles.section}>
+            {dataSelect.map((e) =>{
+                return(                    
+                    <Image key={e} style={styles.image} source={{uri:e}}></Image>
+                )
+            })}
+            </ScrollView>
+            <BaseProduct props={navigation} title={configProduct.title} subtitle={configProduct.subtitle} value={configProduct.value} url={configProduct.url}/>
         </>
     )
 }
 
 const styles = StyleSheet.create({
     section:{
-        alignItems:'center'
+        width:'auto'
     },
     image:{
-        height: 400,
-        width: 280
+        height: 500,
+        width: 300
     }
 })

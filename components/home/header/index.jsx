@@ -1,12 +1,11 @@
-import { Button, StyleSheet, Text, View,RefreshControl } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconLocation from 'react-native-vector-icons/EvilIcons';
-import { Link } from "react-router-native";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import MyContext from '../../../myContext'
-export default function HeaderHome(){
+
+export default function HeaderHome({props}){
     const { id,setId } = useContext(MyContext)
-    console.log(id)
     return(
         <View style={{height:200, backgroundColor:'orange',}}>
             <View style={styles.section}>
@@ -15,13 +14,13 @@ export default function HeaderHome(){
                 </View>
                 <View>
                     {id == 'undefined' ? (
-                        <Link to="/login">
+                        <TouchableOpacity onPress={() => props.navigate('Login') }>
                                    <Icon name="login" size={30} color="black" style={styles.icon}/>
-                              </Link>
+                        </TouchableOpacity>
                     ) : (
-                        <Link to="/login">
+                        <TouchableOpacity onPress={() => props.navigate('User') }>
                             <Icon name="user" size={30} color="black" style={styles.icon}/>
-                        </Link>
+                        </TouchableOpacity>
                     )
                     }
                 </View>

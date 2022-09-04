@@ -1,5 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import Card from "../card";
+import { StyleSheet, View } from "react-native";
 import Filter from "../filter";
 
 export default function ViewHome() {

@@ -1,7 +1,5 @@
-import  Axios  from "axios";
 import { Text } from "react-native";
-import MyContext from '../../../myContext'
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 
 
 export default function Favoritar({Id}){
