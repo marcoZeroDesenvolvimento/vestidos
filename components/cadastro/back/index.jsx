@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Text, View,TextInput,StyleSheet,Button, TouchableOpacity} from "react-native"
-import { clickProps } from "react-native-web/dist/cjs/modules/forwardedProps";
+import { Text, View,StyleSheet, TouchableOpacity} from "react-native"
 
 export default function Back({login,props}){
 
@@ -9,9 +7,6 @@ return(
         <View style={{justifyContent:'space-around',display:'flex',flexDirection:'row'}}>
             <TouchableOpacity onPress={()=> props.navigate('Login')}>
                 <Text style={styles.cadastro}> Realizar <Text style={{color:'orange'}}> {login} |</Text></Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=> props.navigate('Home')}>
-                <Text style={styles.cadastro}> Acessar sem <Text style={{color:'orange'}}> cadastro </Text></Text>
             </TouchableOpacity>
         </View>
     </>

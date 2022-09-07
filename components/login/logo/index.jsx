@@ -5,7 +5,6 @@ export default function Logo(){
         <View style={styles.backgroundImage}>
             <Image
                 style={styles.logoHeader} 
-                // source={require('../../../assets/marco0.PNG')}/>
                 source={{uri:"https://png.pngtree.com/png-vector/20191206/ourlarge/pngtree-planet-jupiter-isolated-cartoon-illustration-png-image_2072943.jpg"}}/>
         </View>
     )

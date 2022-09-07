@@ -1,4 +1,4 @@
-import { Text, View,TextInput,StyleSheet,Button} from "react-native"
+import { Button} from "react-native"
 export default function ButtonComponent({cadastrar}){
 
 return(

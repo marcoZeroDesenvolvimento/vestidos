@@ -1,4 +1,4 @@
-import { Image, View } from "react-native"
+import {  View } from "react-native"
 import {Header} from "../../components/login/header"
 import Logo from "../../components/login/logo"
 

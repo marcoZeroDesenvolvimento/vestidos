@@ -1,11 +1,12 @@
 import {  useEffect, useState } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import Card from "../../components/home/card";
 import HeaderHome from "../../components/home/header";
-import ViewHome from "../../components/home/ViewHome";
 import axios from "axios";
+import Story from "../../components/home/story";
 export default function Home({navigation}){
     const [data,setData] = useState([])  
+
     async function teste(){
         var {data} = await axios( {
             method: 'get',
@@ -19,14 +20,26 @@ export default function Home({navigation}){
     useEffect(() => {
         teste()
     },[]) 
-    
 
     return(
-        <View style={{flex:1}}>
-            <HeaderHome props={navigation} />
-            <ViewHome/>
-            <Card datas={data} props={navigation}/>
-        </View>
+        <ScrollView style={{flex:1}}>
+            <HeaderHome props={navigation}/>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{backgroundColor:'#e8e7e8',paddingTop:10,paddingBottom:10}}>
+            {data.map((e)=>{
+                return(
+                        <Story key={e.id} data={e.produto} props={navigation} images={e.produto.images[0]}/>
+                    )
+                })}
+            </ScrollView>
+
+            {data.map((e)=>{
+                return(
+                    <View style={{flexDirection:'column',marginBottom:30}} key={e.id}>
+                        <Card datas={e.produto} id={e.id}props={navigation}/>
+                    </View>
+                )
+            })}
+        </ScrollView>
     )
 }
 

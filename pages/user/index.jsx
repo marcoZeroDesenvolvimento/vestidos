@@ -1,38 +1,45 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { ScrollView, Text } from "react-native";
-import { Link } from "react-router-native";
-import Carrocel from "../../components/user/carrocelFavorite";
+import { ScrollView, Text, View } from "react-native";
+import Favoritos from "../../components/user/favoritos/index.";
+import Perfil from "../../components/user/perfil";
 import MyContext from '../../myContext'
+import { supabase } from "../../supabase";
+import 'react-native-url-polyfill/auto';
 
 export default function User(){
     const { id,setId } = useContext(MyContext)
-    const [data,setData] = useState([])
+    const [favorites,setFavorites] = useState([])
+    const [ imagesFavorite, setImagesFavorite] =useState([])
 
-    async function getDatas(){
-        var {data} = await axios( {
-            method: 'get',
-            url: 'https://wxzkglnhkvutprxcnozq.supabase.co/rest/v1/moda?select=*',
-            headers: { 
-                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4emtnbG5oa3Z1dHByeGNub3pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjE4OTMzODAsImV4cCI6MTk3NzQ2OTM4MH0.xgBWurkKfUCNualBbQAfI3DFMuRdOWIfPUOfj2IFamw', 
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4emtnbG5oa3Z1dHByeGNub3pxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjE4OTMzODAsImV4cCI6MTk3NzQ2OTM4MH0.xgBWurkKfUCNualBbQAfI3DFMuRdOWIfPUOfj2IFamw'
-            }
-        })
-        setData(data)
+    async function getFavorite(){
+        let { data} = await supabase
+        .from('user_favorite')
+        .select('dataCard')
+        setImagesFavorite(data)
     }
-    useEffect(()=>{ getDatas()},[])
+    
+    
+
+    useEffect(()=>{ getFavorite()},[])
+
     return(
         <>
-            <ScrollView horizontal={true}>
-                {data.map((e)=>{
+           <Perfil/>
+           <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
+            <Text style={{fontWeight:'bold',fontSize:17}}> Favoritos</Text>
+            <Text style={{fontWeight:'300'}}>Click para retirar dos favoritos</Text>
+           </View>
+           <ScrollView horizontal={true}>
+            {imagesFavorite.map((i)=>{
                     return(
-                        <Carrocel url={e.url} key={e.id} title={e.title}/>
+                        <Favoritos data={i.dataCard} key={Math.random()}/>
                     )
-                })}
+                })
+            }
+            
+                
             </ScrollView>
-            {/* <Link to="/">
-                <Text>Home</Text>
-            </Link> */}
         </>
     )
 }

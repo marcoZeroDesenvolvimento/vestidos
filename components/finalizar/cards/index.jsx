@@ -1,4 +1,4 @@
-import { Button, Image, StyleSheet,Clipboard, View, Text, ScrollView } from "react-native";
+import { Image, StyleSheet,Clipboard, View, Text } from "react-native";
 
 
 export default function CardsFinalizar({title,value,url}){

@@ -10,6 +10,7 @@ import Finalizar from "./pages/finalizar";
 import User from "./pages/user";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Filter from "./pages/filter";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ function RoutesTeste() {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{headerShown:false}}
         />
         <Stack.Screen
           name="Login"
@@ -30,9 +32,9 @@ function RoutesTeste() {
           component={Cadastro}
         />
         <Stack.Screen
-          name="SeeProduct"
-          options={{id:99999}}
+          name="Produto"
           component={SeeProduct}
+        
         />
         <Stack.Screen
           name="Finalizar"
@@ -41,6 +43,10 @@ function RoutesTeste() {
         <Stack.Screen
           name="User"
           component={User}
+        />
+        <Stack.Screen
+          name="Filter"
+          component={Filter}
         />
       </Stack.Navigator>
     </NavigationContainer>

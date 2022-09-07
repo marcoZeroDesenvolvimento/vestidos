@@ -1,14 +1,22 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import {  useParams } from "react-router-native";
-import HeaderHome from "../../components/home/header";
-import ViewHome from "../../components/home/ViewHome";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import BaseProduct from "../../components/seeProduct/baseProduct";
+import Buy from "../../components/seeProduct/buy";
+import Caracters from "../../components/seeProduct/caracter";
+import Colors from "../../components/seeProduct/caracter/colors";
+
+
 export default function SeeProduct({navigation,route}){
-   const {id} = route.params;
+    const win = Dimensions.get('window');
+    const ratio = win.width / 200;
+    const {id} = route.params;
     const [dataSelect, setDataSelect] = useState([])
-    const [configProduct, setConfigProduct] = useState('oi')
+    const [configProduct, setConfigProduct] = useState([])
+    const [ size, setSize] = useState([])
+    const [colors, setColors] = useState([])
+
+
     async function popularProduct(){
         const {data} = await Axios({
             method: 'get',
@@ -19,37 +27,68 @@ export default function SeeProduct({navigation,route}){
             }
           });
           data.map((e) =>{
-              if(e.id == id) {
-                setConfigProduct(e)
-                let x = [e.url, e.url2,e.url3,e.url4,e.url5]
-                setDataSelect(x)
-            }
-        })
+            if(e.id == id) {
+                setDataSelect(e.produto)
+                setConfigProduct(e.produto.images)
+                setSize(e.produto.size)
+                setColors(e.produto.colors)
+          }
+      })
     }
 
     useEffect(()=>{popularProduct()},[])
     return(
-        <>
-            <HeaderHome props={navigation}/>
-            <ViewHome/>
+        <View style={{backgroundColor:'white'}}>
             <ScrollView horizontal={true} style={styles.section}>
-            {dataSelect.map((e) =>{
-                return(                    
-                    <Image key={e} style={styles.image} source={{uri:e}}></Image>
+            {configProduct.map((e) =>{
+                return(       
+                    <View style={{flex:1}} key={Math.random()}>
+                        <Image  style={{width:win.width, height: 400 * ratio,borderTopLeftRadius:30,borderTopRightRadius:30,backgroundColor:'white'}} source={{uri:e}}></Image>
+                    </View>             
                 )
             })}
             </ScrollView>
-            <BaseProduct props={navigation} title={configProduct.title} subtitle={configProduct.subtitle} value={configProduct.value} url={configProduct.url}/>
-        </>
+
+            
+            <View style={styles.config}>
+            <BaseProduct props={navigation} data={dataSelect} CardId={id} />
+                <View style={{marginLeft:30,marginTop:5}}>
+
+                    <Text style={{fontWeight:'300', fontSize:20,marginBottom:5}}> Tamanhos:</Text>
+                    <View  style={{flexDirection:'row',marginLeft:10}}>
+                        {size.map((e)=>{
+                            return(
+                                <Caracters key={Math.random()} data={e}/>
+                                )
+                            })}
+                    </View>
+                        <Text style={{fontWeight:'300', fontSize:20,marginLeft:6}}>Cores:</Text>
+                        <View style={{flexDirection:'row',marginLeft:12,marginBottom:30,marginTop:5}}>
+                        {colors.map((e)=>{
+                            return(
+                                <Colors key={Math.random()} data={e}/>
+                                )
+                            })}
+                    </View>
+                </View>
+                    <Buy props={navigation} data={dataSelect} CardId={id}/>
+            </View>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    section:{
-        width:'auto'
+    config:{
+        backgroundColor:"white",
+        height:'35%',
+        width: '100%',
+        position: "absolute",
+        bottom: 0,
+        borderTopLeftRadius:30,
+        borderTopRightRadius:30,
+        alignItems:'flex-start',
+
     },
-    image:{
-        height: 500,
-        width: 300
-    }
+   
+
 })

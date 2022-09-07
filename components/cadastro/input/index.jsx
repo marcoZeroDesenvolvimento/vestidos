@@ -1,7 +1,4 @@
-import { useState } from "react";
-import { Text, View,TextInput,StyleSheet,Button} from "react-native"
-import { Link } from "react-router-native";
-import { supabase } from '../../../supabase';
+import { Text,TextInput,StyleSheet} from "react-native"
 
 export default function Input({nameFild}){
    
