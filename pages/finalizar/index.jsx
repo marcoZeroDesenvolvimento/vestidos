@@ -9,19 +9,13 @@ export default function Finalizar({route}){
     const [datas,setData] = useState([])
     const[valueTotal, setValueTotal] = useState('não há itens')
     const {data} = route.params;
-    
     const copyToClipboard = () => {Clipboard.setString('08443150360') }
-    
-    
     return(
         <ScrollView style={styles.section}>
             <ScrollView horizontal={true}>
                 {data.images.map((i) =>{
-                    console.log(i)
                     return(
-                        <>
-                            <Image  style={{width:500, height:500}} source={{uri:i}} key={Math.random()}></Image>
-                        </>
+                        <Image key={Math.random()}   style={{width:500, height:500}} source={{uri:i} }></Image>
                     )
                 })}
             </ScrollView>

@@ -14,9 +14,10 @@ export default function Favoritos({data}){
             }
         });
     }
+
     return(
         <TouchableOpacity onPress={()=>{ handleRemove() }}>
-            <Image  style={styles.image}source={{uri:data}}></Image>
+            <Image  style={styles.image} source={{uri:data}}></Image>
         </TouchableOpacity>
     
     )

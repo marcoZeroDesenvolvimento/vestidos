@@ -1,7 +1,5 @@
 import React from "react";
 
-import { NativeRouter, Route ,Routes} from "react-router-native";
-
 import Login from "./pages/login";
 import Cadastro from "./pages/Cadastro"
 import Home from "./pages/home";

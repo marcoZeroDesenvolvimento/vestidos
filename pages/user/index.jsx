@@ -10,19 +10,18 @@ import 'react-native-url-polyfill/auto';
 export default function User(){
     const { id,setId } = useContext(MyContext)
     const [favorites,setFavorites] = useState([])
-    const [ imagesFavorite, setImagesFavorite] =useState([])
+    const [ imagesFavorite, setImagesFavorite] = useState([])
+    const [teste, setTeste] = useState([])
 
     async function getFavorite(){
-        let { data} = await supabase
+        let { data } = await supabase
         .from('user_favorite')
-        .select('dataCard')
+        .select()
         setImagesFavorite(data)
+
     }
-    
-    
 
     useEffect(()=>{ getFavorite()},[])
-
     return(
         <>
            <Perfil/>
@@ -32,13 +31,13 @@ export default function User(){
            </View>
            <ScrollView horizontal={true}>
             {imagesFavorite.map((i)=>{
+                if(i.idUser == id.session.user.id){
                     return(
                         <Favoritos data={i.dataCard} key={Math.random()}/>
                     )
+                }  
                 })
             }
-            
-                
             </ScrollView>
         </>
     )

@@ -8,40 +8,49 @@ import { supabase } from "../../../supabase";
 
 
 
-export default function Buy({props,data,CardId}){
+export default function Buy({props,datas,CardId}){
     const { id,setId } = useContext(MyContext)
     const [modalVisible, setModalVisible] = useState(false);
     const [text, setText]= useState([])
     const [text2, setText2]= useState('OK!')
-
+    const [imageUpdate, setImageUpdate] = useState([])
+  
+    var sim = []
 
     async function handleAddTocar(){
-        setModalVisible(true)
-        setText('Item adicionado ao carrinho')
-   
-   
-        if(id.data.access_token == 'oi'){
-            alert("faça login para favoritar")
-        } else {
-            const request = await supabase
-                .from('user_favorite')
-                .insert([
-                { id:CardId, idUser:id , dataCard:data.images[0]},
-            ])
-        }}
-        function handleBuyNoLogin(){
-            setModalVisible(true);
-            setText('Faça login para continuar')
-        }
-        function handleLogin(){
-            setModalVisible(false);
-            props.navigate('Login')
-        }
+        let { data } = await supabase
+        .from('user_favorite')
+        .select(`
+            idUser,idCard
+        `)
+        const teste = data.find((i) =>{
+            return i.idUser == id.session.user.id && i.idCard == CardId
+        })
+        if(!teste){
+            async function updateImage(){
+                const request = await supabase
+                    .from('user_favorite')
+                    .insert([
+                    {idUser:id.session.user.id, dataCard:datas.images[0],idCard:CardId}
+                    ])
+            } updateImage()
 
-        function handleBuy(){
-            props.navigate('Finalizar',{data:data})
         }
+    }
 
+
+    function handleBuyNoLogin(){
+        setModalVisible(true);
+        setText('Faça login para continuar')
+    }
+    function handleLogin(){
+        setModalVisible(false);
+        props.navigate('Login')
+    }
+
+    function handleBuy(){
+        props.navigate('Finalizar',{data:datas})
+    }
     return(
         <View style={styles.section}>
             {id == 'undefined' ? (

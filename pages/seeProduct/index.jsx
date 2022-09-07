@@ -53,7 +53,6 @@ export default function SeeProduct({navigation,route}){
             <View style={styles.config}>
             <BaseProduct props={navigation} data={dataSelect} CardId={id} />
                 <View style={{marginLeft:30,marginTop:5}}>
-
                     <Text style={{fontWeight:'300', fontSize:20,marginBottom:5}}> Tamanhos:</Text>
                     <View  style={{flexDirection:'row',marginLeft:10}}>
                         {size.map((e)=>{
@@ -71,7 +70,7 @@ export default function SeeProduct({navigation,route}){
                             })}
                     </View>
                 </View>
-                    <Buy props={navigation} data={dataSelect} CardId={id}/>
+                    <Buy props={navigation} datas={dataSelect} CardId={id}/>
             </View>
         </View>
     )

@@ -4,8 +4,6 @@ import Dolar from 'react-native-vector-icons/MaterialIcons';
 import MyContext from '../../../myContext'
 import { useContext, useEffect, useState } from 'react'
 import 'react-native-url-polyfill/auto';
-import { supabase } from "../../../supabase";
-import Caracters from "../caracter";
 
 
 export default function BaseProduct({props,data,CardId}){
